@@ -61,12 +61,20 @@ export const ChemistryLab = () => {
       newReaction.pH = 11;
       newReaction.color = '#3B82F6'; // base blue
       toast("Added base - pH increased!");
+    } else if (equipment.type === 'water' && !newReaction.components.includes('water-dilution')) {
+      newReaction.components.push('water-dilution');
+      newReaction.temperature = Math.max(20, newReaction.temperature - 10);
+      toast("Added water - solution diluted!");
     } else if (equipment.type === 'burner') {
       newReaction.temperature = Math.min(100, newReaction.temperature + 30);
       if (newReaction.temperature >= 100) {
         newReaction.isBoiling = true;
         toast("Solution is boiling!");
       }
+    } else if (equipment.type === 'beaker') {
+      toast("New beaker added to workspace!");
+    } else if (equipment.type === 'dropper') {
+      toast("Using dropper for precise measurements!");
     }
 
     // Acid + Base neutralization

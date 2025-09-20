@@ -44,16 +44,16 @@ export const LabCanvas = ({ reaction, selectedEquipment, onEquipmentDrop, isActi
       render: { fillStyle: '#1f2937' }
     });
 
-    // Create glass beaker
-    const beakerLeft = Bodies.rectangle(350, 450, 10, 200, { 
+    // Create glass beaker (centered at 400px horizontally)
+    const beakerLeft = Bodies.rectangle(375, 450, 10, 200, { 
       isStatic: true,
       render: { fillStyle: 'rgba(156, 163, 175, 0.3)' }
     });
-    const beakerRight = Bodies.rectangle(450, 450, 10, 200, { 
+    const beakerRight = Bodies.rectangle(425, 450, 10, 200, { 
       isStatic: true,
       render: { fillStyle: 'rgba(156, 163, 175, 0.3)' }
     });
-    const beakerBottom = Bodies.rectangle(400, 540, 100, 10, { 
+    const beakerBottom = Bodies.rectangle(400, 540, 50, 10, { 
       isStatic: true,
       render: { fillStyle: 'rgba(156, 163, 175, 0.3)' }
     });
@@ -61,8 +61,8 @@ export const LabCanvas = ({ reaction, selectedEquipment, onEquipmentDrop, isActi
     const beakers = [beakerLeft, beakerRight, beakerBottom];
     setBeakerBodies(beakers);
 
-    // Add initial water
-    const initialLiquid = Bodies.rectangle(400, 520, 80, 20, {
+    // Add initial water (centered and smaller to fit beaker)
+    const initialLiquid = Bodies.rectangle(400, 520, 40, 20, {
       render: { fillStyle: reaction.color },
       frictionAir: 0.1,
       density: 0.001
