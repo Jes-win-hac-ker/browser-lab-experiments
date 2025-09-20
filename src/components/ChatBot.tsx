@@ -16,13 +16,29 @@ import {
   Zap
 } from 'lucide-react';
 
-// Check if API key is available
-const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
-const isApiKeyConfigured = GEMINI_API_KEY && GEMINI_API_KEY !== 'your-gemini-api-key-here' && GEMINI_API_KEY !== 'your_actual_api_key_here';
+// Check if API key is available - prioritize GitHub Secrets in production
+const getApiKey = () => {
+  // In production (GitHub Pages), use the injected environment variable from GitHub Secrets
+  if (import.meta.env.PROD) {
+    return import.meta.env.VITE_GEMINI_API_KEY;
+  }
+  
+  // In development, use local .env file
+  return import.meta.env.VITE_GEMINI_API_KEY;
+};
 
-// Debug API key status
-console.log('🔑 API Key Status:', GEMINI_API_KEY ? '✅ Found' : '❌ Missing');
-console.log('🔑 API Key Length:', GEMINI_API_KEY ? GEMINI_API_KEY.length + ' characters' : 'N/A');
+const GEMINI_API_KEY = getApiKey();
+const isApiKeyConfigured = GEMINI_API_KEY && 
+  GEMINI_API_KEY !== 'your-gemini-api-key-here' && 
+  GEMINI_API_KEY !== 'your_actual_api_key_here' &&
+  GEMINI_API_KEY !== 'AIzaSyAJQ8tTvi-aoJ1GpcCzcGdF_zsveqWUm2w'; // Exclude example key
+
+// Debug API key status (only in development)
+if (import.meta.env.DEV) {
+  console.log('🔑 API Key Status:', GEMINI_API_KEY ? '✅ Found' : '❌ Missing');
+  console.log('🔑 API Key Length:', GEMINI_API_KEY ? GEMINI_API_KEY.length + ' characters' : 'N/A');
+  console.log('🔑 Environment:', import.meta.env.PROD ? 'Production (GitHub)' : 'Development (Local)');
+}
 
 interface Message {
   id: string;

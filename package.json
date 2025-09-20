@@ -6,11 +6,19 @@
   "homepage": "https://jes-win-hac-ker.github.io/browser-lab-experiments",
   "scripts": {
     "dev": "vite --port 8080",
-    "build": "vite build",
+    "build": "npm run type-check && vite build",
     "build:dev": "vite build --mode development",
-    "lint": "eslint .",
+    "build:prod": "NODE_ENV=production vite build",
+    "build:github": "NODE_ENV=production GITHUB_ACTIONS=true vite build",
+    "type-check": "tsc --noEmit",
+    "lint": "eslint . --max-warnings 0",
+    "lint:fix": "eslint . --fix",
     "preview": "vite preview --port 4173",
-    "deploy": "npm run build && gh-pages -d dist"
+    "deploy": "npm run build:github && gh-pages -d dist",
+    "deploy:force": "npm run build:github && gh-pages -d dist -f",
+    "clean": "rm -rf dist node_modules/.vite",
+    "verify": "npm run type-check && npm run lint && npm run build:prod",
+    "health-check": "curl -f https://jes-win-hac-ker.github.io/browser-lab-experiments/ || echo 'Site not ready yet'"
   },
   "dependencies": {
     "@google/generative-ai": "^0.24.1",

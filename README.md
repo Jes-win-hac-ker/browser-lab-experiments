@@ -72,12 +72,19 @@ npm run dev
 
 ### **Environment Variables**
 
-Create a `.env.local` file:
+Create a `.env` file (for development only):
 
 ```bash
-# Get your API key from: https://makersuite.google.com/app/apikey
-VITE_GEMINI_API_KEY=your-gemini-api-key-here
+# Copy the example file
+cp .env.example .env
+
+# Add your development API key
+# Get your API key from: https://aistudio.google.com/app/apikey
+VITE_GEMINI_API_KEY=your_development_api_key_here
 ```
+
+> **⚠️ Security Note**: Never commit `.env` files. For production, use GitHub Secrets as described above.
+> **📖 Complete Guide**: See [docs/SECURITY.md](docs/SECURITY.md) for detailed security instructions.
 
 ### **GitHub Pages Setup**
 
