@@ -28,14 +28,11 @@ const getApiKey = () => {
 };
 
 const GEMINI_API_KEY = getApiKey();
-const isApiKeyConfigured = GEMINI_API_KEY && 
-  GEMINI_API_KEY !== 'your-gemini-api-key-here' && 
-  GEMINI_API_KEY !== 'your_actual_api_key_here' &&
-  GEMINI_API_KEY !== 'AIzaSyAJQ8tTvi-aoJ1GpcCzcGdF_zsveqWUm2w'; // Exclude example key
+const isApiKeyConfigured = Boolean(GEMINI_API_KEY) && GEMINI_API_KEY.length > 0;
 
 // Debug API key status (only in development)
 if (import.meta.env.DEV) {
-  console.log('🔑 API Key Status:', GEMINI_API_KEY ? '✅ Found' : '❌ Missing');
+  console.log('🔑 API Key Status:', isApiKeyConfigured ? '✅ Found' : '❌ Missing');
   console.log('🔑 API Key Length:', GEMINI_API_KEY ? GEMINI_API_KEY.length + ' characters' : 'N/A');
   console.log('🔑 Environment:', import.meta.env.PROD ? 'Production (GitHub)' : 'Development (Local)');
 }
