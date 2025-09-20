@@ -8,6 +8,8 @@ A web-based Interactive Chemistry Lab powered by **Matter.js** for real-time phy
 
 [![Deploy Status](https://github.com/Jes-win-hac-ker/browser-lab-experiments/actions/workflows/deploy.yml/badge.svg)](https://github.com/Jes-win-hac-ker/browser-lab-experiments/actions/workflows/deploy.yml)
 
+> 🔄 **Deployment Status**: If you see a 404 error, the site is still deploying. Please wait 2-5 minutes after the first push.
+
 ## ✨ Features
 
 ### 🔬 **Virtual Chemistry Experiments**
