@@ -3,6 +3,7 @@ import { LabCanvas } from "./LabCanvas";
 import { EquipmentSidebar } from "./EquipmentSidebar";
 import { MonitoringPanel } from "./MonitoringPanel";
 import { LabInstructions } from "./LabInstructions";
+import { ChatBot } from "./ChatBot";
 import { Button } from "@/components/ui/button";
 import { RotateCcw } from "lucide-react";
 import { toast } from "sonner";
@@ -148,6 +149,9 @@ export const ChemistryLab = () => {
           </div>
         </div>
       </div>
+
+      {/* Chemistry Assistant Chatbot */}
+      <ChatBot />
     </div>
   );
 };
