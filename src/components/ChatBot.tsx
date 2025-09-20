@@ -496,9 +496,9 @@ Answer as if you're watching the experiment live and can see exactly what the st
                 <Brain className="w-5 h-5 text-primary" />
               </div>
               <div>
-                <h3 className="font-semibold text-foreground">Dr. ChemBot</h3>
+                <h3 className="font-semibold text-foreground">Dr. ChemBot v2.0</h3>
                 <div className="flex items-center gap-2">
-                  <p className="text-xs text-muted-foreground">AI Chemistry Assistant</p>
+                  <p className="text-xs text-muted-foreground">Enhanced AI Chemistry Assistant</p>
                   <Badge 
                     variant={isApiKeyConfigured ? "default" : "destructive"} 
                     className="text-xs"
