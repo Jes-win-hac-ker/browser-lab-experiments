@@ -166,23 +166,13 @@ export const ChemistryLab = () => {
   }, [isExperimentRunning, heatingPower, stirringSpeed, currentReaction.pH, currentReaction.temperature]);
 
   return (
-    <div className="min-h-screen bg-gradient-lab flex flex-col space-y-2">
-      {/* Control Panel */}
-      <div className="container mx-auto px-4 pt-2">
-        <Card className="bg-card/50 backdrop-blur border-primary/10">
-          <div className="p-3">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-              {/* ... (keep all the control panel content) */}
-            </div>
-          </div>
-        </Card>
-      </div>
-
+        <div className="min-h-screen bg-gradient-lab flex flex-col">
       {/* Main Lab Interface */}
-      <div className="container mx-auto px-4 flex-1">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 h-[calc(100vh-180px)] max-w-7xl mx-auto">
+            {/* Main Lab Interface */}
+      <div className="container mx-auto px-4 py-2 flex-1">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 max-w-7xl mx-auto">
           {/* Equipment Sidebar */}
-          <div className="lg:col-span-3">
+          <div className="lg:col-span-3 flex flex-col space-y-2">
             <EquipmentSidebar
               onEquipmentSelect={handleEquipmentSelect}
               selectedEquipment={selectedEquipment}
@@ -191,12 +181,20 @@ export const ChemistryLab = () => {
           </div>
 
           {/* Main Lab Canvas - Centered */}
-          <div className="lg:col-span-6">
-            <div className="w-full h-full flex flex-col space-y-2">
-              {/* Instructions Banner */}
-              <LabInstructions className="flex-none" />
-              
-              {/* Lab Canvas */}
+          <div className="lg:col-span-6 flex flex-col space-y-2">
+            {/* Instructions Banner */}
+            <LabInstructions className="flex-none" />
+            
+            {/* Control Panel */}
+            <Card className="bg-card/50 backdrop-blur border-primary/10">
+              <div className="p-2">
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-2">
+                  {/* ... (keep all the control panel content) */}
+                </div>
+              </div>
+            </Card>
+            
+            {/* Lab Canvas */}
               <div className="flex-1 flex items-center justify-center bg-card/30 backdrop-blur-sm rounded-lg border border-primary/10">
                 <LabCanvas
                   reaction={currentReaction}
