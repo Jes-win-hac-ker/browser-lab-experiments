@@ -2,9 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Virtual Chemistry Lab Design System - Professional Laboratory Theme
-All colors MUST be HSL for consistency.
-*/
+/* Interactive Chemistry Lab Design System - Professional Laboratory Theme */
 
 @layer base {
   :root {
@@ -45,61 +43,53 @@ All colors MUST be HSL for consistency.
 
     --radius: 0.75rem;
 
-    /* Chemistry-specific Colors */
-    --acid-color: 0 85% 65%;
-    --base-color: 240 85% 65%;
-    --neutral-color: 120 60% 55%;
-    --water-color: 200 80% 70%;
-    
-    /* Temperature Gradient */
-    --temp-cold: 200 80% 60%;
-    --temp-warm: 30 90% 60%;
-    --temp-hot: 10 95% 65%;
-    
-    /* Glass Effect */
-    --glass-bg: 210 40% 95% / 0.1;
-    --glass-border: 210 40% 95% / 0.2;
-    --glass-shine: 210 40% 95% / 0.05;
-    
-    /* Lab Gradients */
-    --gradient-lab: linear-gradient(135deg, hsl(220 15% 8%), hsl(220 15% 12%));
-    --gradient-beaker: linear-gradient(145deg, 
-      hsl(var(--glass-bg)), 
-      hsl(210 40% 95% / 0.05));
-    --gradient-electric: linear-gradient(135deg, 
-      hsl(193 90% 55%), 
-      hsl(193 90% 45%));
-    
-    /* Shadows */
-    --shadow-lab: 0 10px 30px -5px hsl(220 15% 5% / 0.5);
-    --shadow-equipment: 0 5px 20px -3px hsl(220 15% 5% / 0.3);
-    --shadow-glow-blue: 0 0 20px hsl(193 90% 55% / 0.3);
-    
-    /* Transitions */
-    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-
+    /* Sidebar */
     --sidebar-background: 0 0% 98%;
-
     --sidebar-foreground: 240 5.3% 26.1%;
-
     --sidebar-primary: 240 5.9% 10%;
-
     --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
-
   .dark {
-    /* Dark mode inherits lab theme (same as light for consistency) */
-    --background: 220 15% 8%;
+    --background: 222.2 84% 4.9%;
     --foreground: 210 40% 98%;
+
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 217.2 91.2% 59.8%;
+    --primary-foreground: 222.2 84% 4.9%;
+
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 220 15% 20%;
+    --input: 220 15% 15%;
+    --ring: 193 90% 55%;
+
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 0 0% 98%;
+    --sidebar-primary-foreground: 240 5.9% 10%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
   }
 }
 
@@ -107,8 +97,227 @@ All colors MUST be HSL for consistency.
   * {
     @apply border-border;
   }
-
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* Enhanced Chemistry Lab Styles */
+@layer utilities {
+  /* Lab Background */
+  .bg-gradient-lab {
+    background: linear-gradient(135deg, hsl(220 15% 8%), hsl(220 15% 12%));
+  }
+
+  /* Glass Effects */
+  .glass-surface {
+    background: rgba(156, 163, 175, 0.1);
+    border: 1px solid rgba(156, 163, 175, 0.2);
+    backdrop-filter: blur(10px);
+  }
+
+  .glass-border {
+    border: 1px solid rgba(156, 163, 175, 0.3);
+  }
+
+  /* Chemistry Colors */
+  .chem-acid {
+    background: linear-gradient(45deg, #dc2626, #f87171);
+  }
+  
+  .chem-base {
+    background: linear-gradient(45deg, #2563eb, #60a5fa);
+  }
+  
+  .chem-neutral {
+    background: linear-gradient(45deg, #059669, #34d399);
+  }
+
+  /* Lab Equipment Shadows */
+  .shadow-lab {
+    box-shadow: 0 10px 25px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  }
+
+  /* Equipment Hover Effects */
+  .equipment-hover:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  }
+
+  /* Particle Effects */
+  .particle-bubble {
+    animation: bubble-float 3s ease-in-out infinite;
+  }
+
+  .reaction-glow {
+    box-shadow: 0 0 20px rgba(34, 197, 94, 0.5);
+    animation: glow-pulse 2s ease-in-out infinite alternate;
+  }
+
+  /* Temperature Indicators */
+  .temp-cold {
+    background: linear-gradient(45deg, #1e40af, #3b82f6);
+    box-shadow: 0 0 15px rgba(59, 130, 246, 0.3);
+  }
+
+  .temp-hot {
+    background: linear-gradient(45deg, #dc2626, #f97316);
+    box-shadow: 0 0 15px rgba(239, 68, 68, 0.3);
+    animation: heat-shimmer 1s ease-in-out infinite alternate;
+  }
+
+  /* pH Color Scale */
+  .ph-acidic {
+    background: linear-gradient(90deg, #dc2626, #f97316);
+  }
+
+  .ph-neutral {
+    background: linear-gradient(90deg, #059669, #10b981);
+  }
+
+  .ph-basic {
+    background: linear-gradient(90deg, #2563eb, #8b5cf6);
+  }
+}
+
+/* Keyframe Animations */
+@keyframes equipment-drag {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes bubble-rise {
+  0% {
+    transform: translateY(0) scale(0);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100px) scale(1);
+    opacity: 0;
+  }
+}
+
+@keyframes heat-shimmer {
+  0% {
+    box-shadow: 0 0 15px rgba(239, 68, 68, 0.3);
+  }
+  100% {
+    box-shadow: 0 0 25px rgba(245, 101, 101, 0.6);
+  }
+}
+
+@keyframes glow-pulse {
+  0% {
+    box-shadow: 0 0 5px rgba(34, 197, 94, 0.2);
+  }
+  100% {
+    box-shadow: 0 0 20px rgba(34, 197, 94, 0.8);
+  }
+}
+
+@keyframes reaction-mix {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Gas Bubble Animation */
+@keyframes gas-bubble {
+  0% {
+    transform: translateY(0) scale(0.5);
+    opacity: 0.7;
+  }
+  50% {
+    transform: translateY(-20px) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-40px) scale(0.3);
+    opacity: 0;
+  }
+}
+
+/* Stirring Animation */
+@keyframes stirring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Boiling Effect */
+@keyframes boiling {
+  0%, 100% {
+    transform: scale(1);
+  }
+  25% {
+    transform: scale(1.02);
+  }
+  50% {
+    transform: scale(1.01);
+  }
+  75% {
+    transform: scale(1.03);
+  }
+}
+
+/* Enhanced Canvas Styling */
+.chemistry-canvas {
+  background: radial-gradient(circle at center, 
+    rgba(34, 197, 94, 0.05) 0%, 
+    rgba(59, 130, 246, 0.05) 50%, 
+    rgba(139, 92, 246, 0.05) 100%);
+  border: 2px solid rgba(34, 197, 94, 0.2);
+}
+
+/* Particle Animation */
+@keyframes particle-float {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  33% {
+    transform: translateY(-20px) rotate(120deg);
+  }
+  66% {
+    transform: translateY(-10px) rotate(240deg);
+  }
+}
+
+/* Equipment Categories */
+.equipment-category {
+  border-left: 3px solid;
+}
+
+.equipment-category.chemicals {
+  border-left-color: #ef4444;
+}
+
+.equipment-category.glassware {
+  border-left-color: #3b82f6;
+}
+
+.equipment-category.instruments {
+  border-left-color: #8b5cf6;
+}
+
+.equipment-category.tools {
+  border-left-color: #f59e0b;
 }
