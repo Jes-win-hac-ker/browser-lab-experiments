@@ -48,9 +48,36 @@ interface Message {
   type?: 'normal' | 'suggestion' | 'warning' | 'success';
 }
 
+interface ExperimentData {
+  name: string;
+  category: string;
+  difficulty: string;
+  expectedOutcome: string;
+  description: string;
+  requiredEquipment: string[];
+  [key: string]: unknown; // Allow additional properties
+}
+
+interface ReactionStateData {
+  pH: number;
+  temperature: number;
+  color: string;
+  volume: number;
+  concentration: number;
+  pressure: number;
+  reactionProgress: number;
+  reactionType: string;
+  isBoiling: boolean;
+  isBubbling: boolean;
+  hasGasEvolution: boolean;
+  hasPrecipitate: boolean;
+  components: string[];
+  [key: string]: unknown; // Allow additional properties
+}
+
 interface ChatBotProps {
-  currentExperiment?: any;
-  reactionState?: any;
+  currentExperiment?: ExperimentData;
+  reactionState?: ReactionStateData;
 }
 
 // Enhanced chemistry knowledge base with contextual suggestions

@@ -8,12 +8,9 @@ export default defineConfig(({ mode }) => {
   // Determine if we're in production and deployment mode
   const isProduction = mode === 'production';
   const isGitHubPages = process.env.GITHUB_ACTIONS === 'true' || process.env.NODE_ENV === 'production';
-  const skipTypeCheck = process.argv.includes('--skipTypeCheck');
   
   // Base path configuration for GitHub Pages
   const basePath = isGitHubPages ? '/browser-lab-experiments/' : '/';
-  
-  console.log(`Skip TypeCheck: ${skipTypeCheck}`);
   
   console.log(`🔧 Vite Config - Mode: ${mode}, Production: ${isProduction}, GitHub Pages: ${isGitHubPages}, Base: ${basePath}`);
   
@@ -61,7 +58,6 @@ export default defineConfig(({ mode }) => {
     // Environment variable handling
     define: {
       'process.env.NODE_ENV': JSON.stringify(mode),
-      'process.env.SKIP_TYPECHECK': skipTypeCheck,
       'process.env.VITE_BUILD_TIME': JSON.stringify(new Date().toISOString()),
     },
     // Dependency optimization

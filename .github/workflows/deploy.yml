@@ -82,7 +82,7 @@ jobs:
         run: |
           echo "🔨 Building application for production..."
           echo "🔑 API Key Status: ${{ secrets.VITE_GEMINI_API_KEY && 'Configured' || 'Not configured' }}"
-          # Using dedicated CI build script that skips type checking for platform compatibility
+          # Skip TypeScript checking and run build for CI environments
           npm run build:prod-ci
         env:
           NODE_OPTIONS: '--max_old_space_size=4096'
