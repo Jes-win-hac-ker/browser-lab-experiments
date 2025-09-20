@@ -1,4 +1,7 @@
-import { useState, useCallback, useEffect } from "react";
+/** @jsxRuntime classic */
+/** @jsx React.createElement */
+/** @jsxFrag React.Fragment */
+import React, { useState, useCallback, useEffect } from 'react';
 import { LabCanvas } from "./LabCanvas";
 import { EquipmentSidebar } from "./EquipmentSidebar";
 import { MonitoringPanel } from "./MonitoringPanel";
@@ -52,7 +55,7 @@ interface ExperimentTemplate {
 }
 
 // Component
-export const ChemistryLab = () => {
+const ChemistryLab = () => {
   // Equipment and experiment state
   const [selectedEquipment, setSelectedEquipment] = useState<LabEquipmentItem | null>(null);
   const [selectedExperiment, setSelectedExperiment] = useState<ExperimentTemplate | null>(null);
@@ -166,9 +169,7 @@ export const ChemistryLab = () => {
   }, [isExperimentRunning, heatingPower, stirringSpeed, currentReaction.pH, currentReaction.temperature]);
 
   return (
-        <div className="min-h-screen bg-gradient-lab flex flex-col">
-      {/* Main Lab Interface */}
-            {/* Main Lab Interface */}
+    <div className="min-h-screen bg-gradient-lab flex flex-col">
       <div className="container mx-auto px-4 py-2 flex-1">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 max-w-7xl mx-auto">
           {/* Equipment Sidebar */}
@@ -182,30 +183,18 @@ export const ChemistryLab = () => {
 
           {/* Main Lab Canvas - Centered */}
           <div className="lg:col-span-6 flex flex-col space-y-2">
-            {/* Instructions Banner */}
             <LabInstructions className="flex-none" />
-            
-            {/* Control Panel */}
-            <Card className="bg-card/50 backdrop-blur border-primary/10">
-              <div className="p-2">
-                <div className="grid grid-cols-2 lg:grid-cols-4 gap-2">
-                  {/* ... (keep all the control panel content) */}
-                </div>
-              </div>
-            </Card>
-            
             {/* Lab Canvas */}
-              <div className="flex-1 flex items-center justify-center bg-card/30 backdrop-blur-sm rounded-lg border border-primary/10">
-                <LabCanvas
-                  reaction={currentReaction}
-                  selectedEquipment={selectedEquipment}
-                  onEquipmentDrop={handleEquipmentDrop}
-                  isActive={isExperimentActive}
-                  concentration={concentration}
-                  heatingPower={heatingPower}
-                  stirringSpeed={stirringSpeed}
-                />
-              </div>
+            <div className="flex-1 flex items-center justify-center bg-card/30 backdrop-blur-sm rounded-lg border border-primary/10">
+              <LabCanvas
+                reaction={currentReaction}
+                selectedEquipment={selectedEquipment}
+                onEquipmentDrop={handleEquipmentDrop}
+                isActive={isExperimentActive}
+                concentration={concentration}
+                heatingPower={heatingPower}
+                stirringSpeed={stirringSpeed}
+              />
             </div>
           </div>
 
@@ -218,27 +207,33 @@ export const ChemistryLab = () => {
             />
           </div>
         </div>
-      </div>
 
-      {/* Chemistry Assistant Chatbot */}
-      <ChatBot 
-        currentExperiment={selectedExperiment}
-        reactionState={{
-          temperature: currentReaction.temperature,
-          pH: currentReaction.pH,
-          color: currentReaction.color,
-          isBoiling: currentReaction.isBoiling,
-          isBubbling: currentReaction.isBubbling,
-          hasGasEvolution: currentReaction.hasGasEvolution,
-          hasPrecipitate: currentReaction.hasPrecipitate,
-          components: currentReaction.components,
-          reactionProgress: currentReaction.reactionProgress,
-          concentration: currentReaction.concentration,
-          volume: currentReaction.volume,
-          pressure: currentReaction.pressure,
-          reactionType: currentReaction.reactionType,
-        }}
-      />
+        {/* Chemistry Assistant Chatbot */}
+        <div className="mt-4">
+          <ChatBot 
+            currentExperiment={selectedExperiment}
+            reactionState={{
+              temperature: currentReaction.temperature,
+              pH: currentReaction.pH,
+              color: currentReaction.color,
+              isBoiling: currentReaction.isBoiling,
+              isBubbling: currentReaction.isBubbling,
+              hasGasEvolution: currentReaction.hasGasEvolution,
+              hasPrecipitate: currentReaction.hasPrecipitate,
+              components: currentReaction.components,
+              reactionProgress: currentReaction.reactionProgress,
+              concentration: currentReaction.concentration,
+              volume: currentReaction.volume,
+              pressure: currentReaction.pressure,
+              reactionType: currentReaction.reactionType,
+            }}
+          />
+        </div>
+      </div>
     </div>
   );
 };
+
+export { ChemistryLab };
+
+
