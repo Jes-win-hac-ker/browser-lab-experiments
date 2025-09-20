@@ -99,7 +99,19 @@ export const ChemistryLab = () => {
       components: [...prev.components, equipment.name]
     }));
     toast.success(`Added ${equipment.name} to reaction`);
+    // If a burner is added, simulate heating
+    if (equipment.type === 'burner') {
+      setHeatingPower(80); // moderate heating power
+      setIsExperimentActive(true);
+      toast.success('Bunsen burner activated');
+    }
+    // If a stirrer is added, set stirring speed
+    if (equipment.type === 'stirrer') {
+      setStirringSpeed(60);
+      toast.success('Stirrer activated');
+    }
   }, []);
+
 
   // Experiment control handlers
   const startExperiment = useCallback(() => {
@@ -133,7 +145,9 @@ export const ChemistryLab = () => {
     });
     setExperimentData([]);
     setIsExperimentRunning(false);
-    setIsExperimentActive(false);
+  setIsExperimentActive(false);
+  setHeatingPower(0);
+  setStirringSpeed(0);
     toast.info("Experiment reset");
   }, []);
 
