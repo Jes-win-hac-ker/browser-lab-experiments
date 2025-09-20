@@ -28,12 +28,21 @@ export const LabCanvas = ({ reaction, selectedEquipment, onEquipmentDrop, isActi
 
   // Convert ChemicalReaction to ExperimentState
   const convertToExperimentState = (reaction: ChemicalReaction): ExperimentState => {
-    // Calculate acid and base volumes based on components
-    const acidVolume = reaction.components.includes('acid') ? reaction.volume * 0.5 : 0;
-    const baseVolume = reaction.components.includes('base') ? reaction.volume * 0.5 : 0;
-    const indicatorAdded = reaction.components.includes('indicator');
+    // Map component names to basic categories and estimate volumes
+    const names = reaction.components.map(c => c.toLowerCase());
 
-    // Determine reaction state based on pH
+    const acidKeywords = ['hcl', 'hydrochloric', 'nitric', 'nitrate', 'acid'];
+    const baseKeywords = ['naoh', 'sodium', 'carbonate', 'base', 'hydroxide', 'chloride'];
+
+    const acidCount = names.filter(n => acidKeywords.some(k => n.includes(k))).length;
+    const baseCount = names.filter(n => baseKeywords.some(k => n.includes(k))).length;
+    const indicatorAdded = names.some(n => n.includes('indicator')) || names.some(n => n.includes('universal'));
+
+    // Heuristic volumes matching EquipmentSidebar defaults
+    const acidVolume = acidCount * 50;
+    const baseVolume = baseCount * 50;
+
+    // Determine reaction state based on pH and presence of reagents
     let reactionState: ExperimentState['reactionState'] = 'none';
     if (acidVolume > 0 || baseVolume > 0) {
       if (reaction.pH < 6.5) reactionState = 'acidic';

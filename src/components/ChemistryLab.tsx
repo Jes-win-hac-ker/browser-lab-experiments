@@ -12,7 +12,7 @@ import { RotateCcw, Play, Pause, Download, Camera } from "lucide-react";
 import { toast } from "sonner";
 
 // Interfaces
-interface ChemicalReaction {
+export interface ChemicalReaction {
   id: string;
   temperature: number;
   pH: number;
@@ -29,7 +29,7 @@ interface ChemicalReaction {
   reactionType: 'neutralization' | 'precipitation' | 'gas-evolution' | 'distillation' | 'none';
 }
 
-interface LabEquipmentItem {
+export interface LabEquipmentItem {
   id: string;
   type: 'acid' | 'base' | 'water' | 'beaker' | 'burner' | 'dropper' | 'thermometer' | 'ph-meter' | 'stirrer' | 'test-tube' | 'funnel' | 'distillation-setup';
   name: string;
@@ -165,12 +165,68 @@ export const ChemistryLab = () => {
     }
   }, [isExperimentRunning, heatingPower, stirringSpeed, currentReaction.pH, currentReaction.temperature]);
 
+  // Derive reaction chemistry when components list changes
+  useEffect(() => {
+    setCurrentReaction(prev => {
+      const components = prev.components;
+      if (components.length === 0) return { ...prev, pH: 7, volume: 0, concentration: 0, reactionType: 'none' };
+
+      // Count acids, bases, water, indicator
+      const acidCount = components.filter(c => c.toLowerCase().includes('hcl') || c.toLowerCase().includes('nitrate') ).length;
+      const baseCount = components.filter(c => c.toLowerCase().includes('naoh') || c.toLowerCase().includes('carbonate') || c.toLowerCase().includes('chloride')).length;
+      const waterCount = components.filter(c => c.toLowerCase().includes('water')).length;
+      const indicatorAdded = components.some(c => c.toLowerCase().includes('indicator'));
+
+      // Volume heuristic (each chemical 50 mL if volume known else 10 mL; water 100 or 5 for indicator)
+      let volume = 0;
+      components.forEach(name => {
+        const lower = name.toLowerCase();
+        if (lower.includes('water') && !lower.includes('indicator')) volume += 100;
+        else if (lower.includes('indicator')) volume += 5;
+        else if (lower.includes('hcl') || lower.includes('naoh')) volume += 50;
+        else volume += 10;
+      });
+
+      // pH estimation
+      let pH = 7;
+      if (acidCount > baseCount) pH = Math.max(1, 7 - (acidCount - baseCount) * 1.5);
+      else if (baseCount > acidCount) pH = Math.min(13, 7 + (baseCount - acidCount) * 1.5);
+
+      // Reaction type
+      let reactionType: ChemicalReaction['reactionType'] = 'none';
+      if (acidCount && baseCount) {
+        const balance = Math.abs(acidCount - baseCount);
+        reactionType = balance === 0 ? 'neutralization' : 'gas-evolution'; // simple heuristic
+      } else if (components.some(c => c.toLowerCase().includes('silver') ) && components.some(c => c.toLowerCase().includes('chloride'))) {
+        reactionType = 'precipitation';
+      }
+
+      // Gas / precipitate flags
+      const hasGasEvolution = reactionType === 'gas-evolution';
+      const hasPrecipitate = reactionType === 'precipitation';
+
+      // Concentration heuristic (moles/volume) simplified: (#reactive components)/ (volume/100)
+      const reactiveCount = acidCount + baseCount;
+      const concentration = volume > 0 ? Math.min(5, reactiveCount / Math.max(1, volume / 100)) : 0;
+
+      return {
+        ...prev,
+        pH,
+        volume,
+        concentration,
+        reactionType,
+        hasGasEvolution,
+        hasPrecipitate,
+        color: indicatorAdded ? (pH < 7 ? '#EF4444' : pH > 7 ? '#3B82F6' : '#10B981') : prev.color
+      };
+    });
+  }, [currentReaction.components]);
+
   return (
-        <div className="min-h-screen bg-gradient-lab flex flex-col">
+    <div className="min-h-screen bg-gradient-lab flex flex-col">
       {/* Main Lab Interface */}
-            {/* Main Lab Interface */}
       <div className="container mx-auto px-4 py-2 flex-1">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 max-w-7xl mx-auto">
+  <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 max-w-7xl mx-auto">
           {/* Equipment Sidebar */}
           <div className="lg:col-span-3 flex flex-col space-y-2">
             <EquipmentSidebar
@@ -189,56 +245,70 @@ export const ChemistryLab = () => {
             <Card className="bg-card/50 backdrop-blur border-primary/10">
               <div className="p-2">
                 <div className="grid grid-cols-2 lg:grid-cols-4 gap-2">
+                  {/* Control buttons */}
+                  <div className="col-span-2 lg:col-span-4 flex items-center gap-2">
+                    <Button onClick={startExperiment} className="flex items-center gap-2">
+                      <Play className="w-4 h-4" />
+                      Start
+                    </Button>
+                    <Button onClick={pauseExperiment} className="flex items-center gap-2">
+                      <Pause className="w-4 h-4" />
+                      Pause
+                    </Button>
+                    <Button variant="destructive" onClick={resetExperiment} className="flex items-center gap-2">
+                      <RotateCcw className="w-4 h-4" />
+                      Reset
+                    </Button>
+                  </div>
                   {/* ... (keep all the control panel content) */}
                 </div>
               </div>
             </Card>
             
             {/* Lab Canvas */}
-              <div className="flex-1 flex items-center justify-center bg-card/30 backdrop-blur-sm rounded-lg border border-primary/10">
-                <LabCanvas
-                  reaction={currentReaction}
-                  selectedEquipment={selectedEquipment}
-                  onEquipmentDrop={handleEquipmentDrop}
-                  isActive={isExperimentActive}
-                  concentration={concentration}
-                  heatingPower={heatingPower}
-                  stirringSpeed={stirringSpeed}
-                />
-              </div>
+            <div className="flex-1 flex items-center justify-center bg-card/30 backdrop-blur-sm rounded-lg border border-primary/10">
+              <LabCanvas
+                reaction={currentReaction}
+                selectedEquipment={selectedEquipment}
+                onEquipmentDrop={handleEquipmentDrop}
+                isActive={isExperimentActive}
+                concentration={concentration}
+                heatingPower={heatingPower}
+                stirringSpeed={stirringSpeed}
+              />
             </div>
-          </div>
-
-          {/* Enhanced Monitoring Panel */}
-          <div className="lg:col-span-3">
+          </div>{/* end col-span-6 */}
+          {/* Enhanced Monitoring Panel + Chatbot */}
+          <div className="lg:col-span-3 flex flex-col space-y-4">
             <MonitoringPanel 
               reaction={currentReaction} 
               experimentData={experimentData}
               isRunning={isExperimentRunning}
             />
+            {/* Chemistry Assistant Chatbot */}
+            <div className="mt-4">
+              <ChatBot 
+                currentExperiment={selectedExperiment}
+                reactionState={{
+                  temperature: currentReaction.temperature,
+                  pH: currentReaction.pH,
+                  color: currentReaction.color,
+                  isBoiling: currentReaction.isBoiling,
+                  isBubbling: currentReaction.isBubbling,
+                  hasGasEvolution: currentReaction.hasGasEvolution,
+                  hasPrecipitate: currentReaction.hasPrecipitate,
+                  components: currentReaction.components,
+                  reactionProgress: currentReaction.reactionProgress,
+                  concentration: currentReaction.concentration,
+                  volume: currentReaction.volume,
+                  pressure: currentReaction.pressure,
+                  reactionType: currentReaction.reactionType
+                }}
+              />
+            </div>
           </div>
         </div>
       </div>
-
-      {/* Chemistry Assistant Chatbot */}
-      <ChatBot 
-        currentExperiment={selectedExperiment}
-        reactionState={{
-          temperature: currentReaction.temperature,
-          pH: currentReaction.pH,
-          color: currentReaction.color,
-          isBoiling: currentReaction.isBoiling,
-          isBubbling: currentReaction.isBubbling,
-          hasGasEvolution: currentReaction.hasGasEvolution,
-          hasPrecipitate: currentReaction.hasPrecipitate,
-          components: currentReaction.components,
-          reactionProgress: currentReaction.reactionProgress,
-          concentration: currentReaction.concentration,
-          volume: currentReaction.volume,
-          pressure: currentReaction.pressure,
-          reactionType: currentReaction.reactionType,
-        }}
-      />
     </div>
   );
 };
