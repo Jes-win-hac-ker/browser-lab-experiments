@@ -40,13 +40,14 @@ This guide ensures your Chemistry Lab is deployed securely with proper API key m
 
 1. **Create Local Environment**
    ```bash
-   cp .env.example .env
+   # Create .env file for development only
+   echo "VITE_GEMINI_API_KEY=your_development_api_key_here" > .env
    ```
 
 2. **Add Your Development Key**
    ```bash
-   # Edit .env file
-   VITE_GEMINI_API_KEY=your_actual_api_key_here
+   # Get your API key from: https://aistudio.google.com/app/apikey
+   # Replace the placeholder with your actual key
    ```
 
 3. **Verify Setup**
@@ -156,18 +157,22 @@ This guide ensures your Chemistry Lab is deployed securely with proper API key m
 ## 📊 Security Best Practices
 
 ### ✅ **Do This**
-- Use GitHub Secrets for all sensitive data
-- Separate development and production keys
+- Use GitHub Secrets for all production API keys
+- Create local .env files for development only
+- Add comprehensive .env patterns to .gitignore
 - Regularly rotate API keys
 - Monitor usage and billing
 - Use environment-specific configurations
+- Remove any .env.example files that might contain real keys
 
 ### ❌ **Never Do This**
 - Commit .env files to repository
+- Include .env.example files with real keys
 - Hardcode API keys in source code
 - Share API keys in chat/email
 - Use production keys for development
 - Log API keys to console in production
+- Include API keys in documentation or comments
 
 ## 🔐 Advanced Security (Optional)
 

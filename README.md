@@ -72,18 +72,20 @@ npm run dev
 
 ### **Environment Variables**
 
-Create a `.env` file (for development only):
+For local development with AI features:
 
 ```bash
-# Copy the example file
-cp .env.example .env
+# Option 1: Use the setup script (recommended)
+./scripts/setup-dev.sh
 
-# Add your development API key
+# Option 2: Manual setup
+echo "VITE_GEMINI_API_KEY=your_development_api_key_here" > .env
+
 # Get your API key from: https://aistudio.google.com/app/apikey
-VITE_GEMINI_API_KEY=your_development_api_key_here
+# Edit .env file with your actual key, then: npm run dev
 ```
 
-> **⚠️ Security Note**: Never commit `.env` files. For production, use GitHub Secrets as described above.
+> **🔒 Security**: Local .env files are automatically ignored by git and never committed.
 > **📖 Complete Guide**: See [docs/SECURITY.md](docs/SECURITY.md) for detailed security instructions.
 
 ### **GitHub Pages Setup**
