@@ -9,6 +9,7 @@
     "build": "npm run type-check && vite build",
     "build:dev": "vite build --mode development",
     "build:prod": "NODE_ENV=production vite build",
+    "build:prod-ci": "NODE_ENV=production GITHUB_ACTIONS=true vite build -- --skipTypeCheck",
     "build:github": "NODE_ENV=production GITHUB_ACTIONS=true vite build",
     "type-check": "tsc --noEmit",
     "lint": "eslint . --max-warnings 0",
