@@ -496,6 +496,27 @@ export const LabCanvas = ({ reaction, selectedEquipment, onEquipmentDrop, isActi
     }, 5000);
   };
 
+  // Clear all visual elements during reset
+  const clearVisuals = () => {
+    if (engineRef.current) {
+      World.clear(engineRef.current.world, true);
+    }
+  };
+
+  // Clear right-side visuals during reset
+  const clearRightVisuals = () => {
+    setBeakerBodies([]);
+    setLiquidBodies([]);
+    setParticleBodies([]);
+  };
+
+  useEffect(() => {
+    if (!isActive) {
+      clearVisuals();
+      clearRightVisuals();
+    }
+  }, [isActive]);
+
   return (
     <div className="relative w-full flex justify-center">
       <div className="bg-card/50 backdrop-blur-sm rounded-xl p-6 shadow-lab border border-border/50 w-full max-w-4xl">

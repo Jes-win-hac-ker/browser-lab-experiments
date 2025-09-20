@@ -236,6 +236,13 @@ export const ChemistryLab = () => {
     });
   }, [currentReaction.components]);
 
+  // Stop burner function
+  const stopBurner = useCallback(() => {
+    setHeatingPower(0);
+    setIsExperimentActive(false);
+    toast.info('Bunsen burner stopped');
+  }, []);
+
   return (
     <div className="min-h-screen bg-gradient-lab flex flex-col">
       {/* Main Lab Interface */}
@@ -272,6 +279,10 @@ export const ChemistryLab = () => {
                     <Button variant="destructive" onClick={resetExperiment} className="flex items-center gap-2">
                       <RotateCcw className="w-4 h-4" />
                       Reset
+                    </Button>
+                    <Button onClick={stopBurner} className="flex items-center gap-2">
+                      <Pause className="w-4 h-4" />
+                      Stop Burner
                     </Button>
                   </div>
                   {/* ... (keep all the control panel content) */}
