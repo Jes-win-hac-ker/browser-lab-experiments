@@ -1,12 +1,124 @@
-# Welcome to your Lovable project
+# 🧪 Interactive Chemistry Lab Emulator
 
-## Project info
+A web-based Interactive Chemistry Lab powered by **Matter.js** for real-time physics simulation and **Gemini AI** for intelligent chemistry assistance.
 
-**URL**: https://lovable.dev/projects/115ff1ee-abd4-477e-8549-dc10a506817c
+## 🌟 Live Demo
 
-## How can I edit this code?
+**🔗 [View Live Demo](https://jes-win-hac-ker.github.io/browser-lab-experiments/)**
 
-There are several ways of editing your application.
+[![Deploy Status](https://github.com/Jes-win-hac-ker/browser-lab-experiments/actions/workflows/deploy.yml/badge.svg)](https://github.com/Jes-win-hac-ker/browser-lab-experiments/actions/workflows/deploy.yml)
+
+## ✨ Features
+
+### 🔬 **Virtual Chemistry Experiments**
+- **Acid-Base Neutralization** with real-time pH monitoring
+- **Gas Evolution Reactions** with dynamic bubble effects  
+- **Precipitation Formation** with realistic settling physics
+- **Simple Distillation** with heat-based separation
+
+### ⚗️ **Interactive Lab Equipment**
+- Drag-and-drop beakers, test tubes, burners, and droppers
+- Real-time pH, temperature, and concentration monitoring
+- Professional measurement tools and indicators
+- Realistic particle physics with Matter.js
+
+### 🤖 **AI Chemistry Assistant**
+- **Gemini AI-powered** ChatBot for instant help
+- Context-aware responses based on current experiment state
+- Educational explanations of chemical reactions
+- Safety guidelines and best practices
+
+### 🎯 **Educational Features**
+- Pre-built experiment templates
+- Real-time data visualization with charts
+- Challenge mode for prediction-based learning
+- Professional lab interface with modern design
+
+## 🚀 Quick Start
+
+### **Option 1: Run Locally**
+
+```bash
+# Clone the repository
+git clone https://github.com/Jes-win-hac-ker/browser-lab-experiments.git
+cd browser-lab-experiments
+
+# Install dependencies
+npm install
+
+# Add your Gemini API key (optional)
+cp .env.example .env.local
+# Edit .env.local and add your API key
+
+# Start development server
+npm run dev
+```
+
+### **Option 2: Deploy to GitHub Pages**
+
+1. **Fork this repository**
+2. **Add Gemini API Key** (optional):
+   - Go to your repo **Settings → Secrets and variables → Actions**
+   - Add secret: `VITE_GEMINI_API_KEY` with your [Gemini API key](https://makersuite.google.com/app/apikey)
+3. **Enable GitHub Pages**:
+   - Go to **Settings → Pages**
+   - Source: **Deploy from a branch**
+   - Branch: **gh-pages**
+4. **Push to main branch** - GitHub Actions will automatically deploy!
+
+## 🔧 Configuration
+
+### **Environment Variables**
+
+Create a `.env.local` file:
+
+```bash
+# Get your API key from: https://makersuite.google.com/app/apikey
+VITE_GEMINI_API_KEY=your-gemini-api-key-here
+```
+
+### **GitHub Pages Setup**
+
+1. **Repository Settings**:
+   - Go to **Settings → Pages**
+   - **Source**: Deploy from a branch
+   - **Branch**: gh-pages
+   - **Folder**: / (root)
+
+2. **GitHub Secrets** (for AI features):
+   - **Settings → Secrets and variables → Actions**
+   - **New repository secret**: `VITE_GEMINI_API_KEY`
+
+## 🛠️ Technologies Used
+
+- **⚛️ React 18** - Modern UI framework
+- **🎨 Tailwind CSS** - Utility-first styling
+- **⚡ Vite** - Fast build tool and dev server
+- **🎲 Matter.js** - 2D physics engine for realistic simulations
+- **🤖 Google Gemini AI** - Intelligent chemistry assistance
+- **📊 Recharts** - Real-time data visualization
+- **🔧 TypeScript** - Type-safe development
+
+## 🧪 How to Use
+
+1. **Select an Experiment**: Choose from acid-base, precipitation, or gas evolution
+2. **Add Chemicals**: Drag equipment from the sidebar to the beaker
+3. **Monitor Results**: Watch real-time pH, temperature, and reaction progress
+4. **Ask Questions**: Use the AI ChatBot for chemistry explanations
+5. **Reset & Repeat**: Try different combinations safely
+
+## 🤖 AI Assistant Features
+
+The ChatBot provides:
+- **Context-aware responses** based on your current experiment
+- **Real-time analysis** of pH, temperature, and visual changes
+- **Educational explanations** of chemical reactions
+- **Safety guidelines** and best practices
+- **Experiment suggestions** and troubleshooting
+
+---
+
+**🧪 Start experimenting with chemistry today!** [Launch the Lab →](https://jes-win-hac-ker.github.io/browser-lab-experiments/)
 
 **Use Lovable**
 
