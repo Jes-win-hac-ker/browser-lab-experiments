@@ -10,6 +10,24 @@ A web-based Interactive Chemistry Lab powered by **Matter.js** for real-time phy
 
 > 🔄 **Deployment Status**: If you see a 404 error, the site is still deploying. Please wait 2-5 minutes after the first push.
 
+## 🚀 Getting Started
+
+### Environment Setup
+
+1. Copy the example environment file:
+   ```bash
+   cp .env.example .env
+   ```
+
+2. Get your Gemini API key from [Google's AI Studio](https://makersuite.google.com/app/apikey)
+
+3. Update your `.env` file with your API key:
+   ```env
+   VITE_GEMINI_API_KEY=your-actual-api-key-here
+   ```
+
+> ⚠️ Never commit your `.env` file - it's already in `.gitignore` to prevent accidental commits
+
 ## ✨ Features
 
 ### 🔬 **Virtual Chemistry Experiments**
