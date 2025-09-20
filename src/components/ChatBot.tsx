@@ -9,7 +9,7 @@ import {
   X, 
   Send, 
   Bot,
-  TestTube,
+  TestTube, // Fixed: Using TestTube instead of Flask
   HelpCircle,
   Lightbulb
 } from "lucide-react";
